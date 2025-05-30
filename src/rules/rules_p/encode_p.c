@@ -12,23 +12,14 @@
 
 #include "utils/metaph_add.h"
 
-void Encode_P(Metaphone3 *ctx)
-{
-    if (
-        Encode_Silent_P_At_Beginning(ctx) ||
-        Encode_PT(ctx) ||
-        Encode_PH(ctx) ||
-        Encode_PPH(ctx) ||
-        Encode_RPS(ctx) ||
-        Encode_COUP(ctx) ||
-        Encode_PNEUM(ctx) ||
-        Encode_PSYCH(ctx) ||
-        Encode_PSALM(ctx))
-    {
-        return;
-    }
+void Encode_P(Metaphone3 *ctx) {
+  if (Encode_Silent_P_At_Beginning(ctx) || Encode_PT(ctx) || Encode_PH(ctx) ||
+      Encode_PPH(ctx) || Encode_RPS(ctx) || Encode_COUP(ctx) ||
+      Encode_PNEUM(ctx) || Encode_PSYCH(ctx) || Encode_PSALM(ctx)) {
+    return;
+  }
 
-    Encode_PB(ctx);
+  Encode_PB(ctx);
 
-    MetaphAdd(ctx, "P");
+  MetaphAdd(ctx, "P");
 }
