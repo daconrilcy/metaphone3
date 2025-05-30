@@ -5,22 +5,30 @@
 #include "utils/metaph_add.h"
 #include "utils/skip_vowels.h"
 #include "utils/string_utils.h"
+#include "utils/char_utils.h"
 
-void Encode_Vowels(Metaphone3 *ctx) {
+void Encode_Vowels(Metaphone3 *ctx)
+{
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
 
-  if (m_current == 0) {
+  if (m_current == 0)
+  {
     // all init vowels map to 'A'
     // as of Double Metaphone
     MetaphAdd(ctx, "A");
-  } else if (ctx->m_encodeVowels) {
-    if (CharAt(w, m_current) != 'E') {
-      if (Skip_Silent_UE(ctx)) {
+  }
+  else if (ctx->m_encodeVowels)
+  {
+    if (CharAt(w, m_current) != 'E')
+    {
+      if (Skip_Silent_UE(ctx))
+      {
         return;
       }
 
-      if (O_Silent(ctx)) {
+      if (O_Silent(ctx))
+      {
         ctx->m_current++;
         return;
       }
@@ -28,15 +36,20 @@ void Encode_Vowels(Metaphone3 *ctx) {
       // encode all vowels and
       // diphthongs to the same value
       MetaphAdd(ctx, "A");
-    } else {
+    }
+    else
+    {
       Encode_E_Pronounced(ctx);
     }
   }
 
   if (!(!IsVowel(CharAt(w, (m_current - 2))) &&
-        StringAt(w, (m_current - 1), 4, "LEWA", "LEWO", "LEWI", ""))) {
+        StringAt(w, (m_current - 1), 4, "LEWA", "LEWO", "LEWI", "")))
+  {
     ctx->m_current = SkipVowels(ctx, m_current);
-  } else {
+  }
+  else
+  {
     ctx->m_current++;
   }
 }

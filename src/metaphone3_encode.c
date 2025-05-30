@@ -30,29 +30,28 @@
 #include <stddef.h>
 #include <stdio.h>
 
-void Metaphone3_encode(Metaphone3 *ctx) {
+void Metaphone3_encode(Metaphone3 *ctx)
+{
   if (!ctx || !ctx->m_inWord)
     return;
   ctx->flag_AL_inversion = false;
   Buffer_clear(ctx->m_primary);
   Buffer_clear(ctx->m_secondary);
 
-  if (ctx->m_length < 1) {
+  if (ctx->m_length < 1)
+  {
     return;
   }
 
   ctx->m_current = 0;
 
-  while (ctx->m_current <= ctx->m_last) {
+  while (ctx->m_current <= ctx->m_last)
+  {
     char c = ctx->m_inWord[ctx->m_current];
-    switch (c) {
+    switch (c)
+    {
     case 'B':
       Encode_B(ctx);
-      break;
-    case 'ß':
-    case 'Ç':
-      MetaphAdd(ctx, "S");
-      ctx->m_current++;
       break;
     case 'C':
       Encode_C(ctx);
@@ -84,10 +83,6 @@ void Metaphone3_encode(Metaphone3 *ctx) {
     case 'N':
       Encode_N(ctx);
       break;
-    case 'Ń':
-      MetaphAdd(ctx, "N");
-      ctx->m_current++;
-      break;
     case 'P':
       Encode_P(ctx);
       break;
@@ -103,10 +98,6 @@ void Metaphone3_encode(Metaphone3 *ctx) {
     case 'T':
       Encode_T(ctx);
       break;
-    case 'Đ': // eth
-    case 'Ţ': // thorn
-      MetaphAdd(ctx, "0");
-      ctx->m_current++;
     case 'V':
       Encode_V(ctx);
       break;
@@ -124,7 +115,8 @@ void Metaphone3_encode(Metaphone3 *ctx) {
       Encode_Z(ctx);
       break;
     default:
-      if (IsVowel(CharAt(ctx->m_inWord, ctx->m_current))) {
+      if (IsVowel(CharAt(ctx->m_inWord, ctx->m_current)))
+      {
         Encode_Vowels(ctx);
         break;
       }

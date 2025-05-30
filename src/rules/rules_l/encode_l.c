@@ -15,7 +15,8 @@
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
 
-bool Encode_L(Metaphone3 *ctx) {
+void Encode_L(Metaphone3 *ctx)
+{
   // logic below needs to know this
   // after 'm_current' variable changed
   int save_current = ctx->m_current;
@@ -25,11 +26,13 @@ bool Encode_L(Metaphone3 *ctx) {
   if (Encode_LELY_To_L(ctx) || Encode_COLONEL(ctx) || Encode_French_AULT(ctx) ||
       Encode_French_EUIL(ctx) || Encode_French_OULX(ctx) ||
       Encode_Silent_L_In_LM(ctx) || Encode_Silent_L_In_LK_LV(ctx) ||
-      Encode_Silent_L_In_OULD(ctx)) {
+      Encode_Silent_L_In_OULD(ctx))
+  {
     return;
   }
 
-  if (Encode_LL_As_Vowel_Cases(ctx)) {
+  if (Encode_LL_As_Vowel_Cases(ctx))
+  {
     return;
   }
 

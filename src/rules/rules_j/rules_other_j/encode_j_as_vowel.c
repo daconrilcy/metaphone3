@@ -2,14 +2,16 @@
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
 
-bool Encode_J_As_Vowel(Metaphone3 *ctx) {
+bool Encode_J_As_Vowel(Metaphone3 *ctx)
+{
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
   int m_last = ctx->m_last;
   int m_length = ctx->m_length;
 
-  if (StringAt(w, m_current, 5, "JEWSK", "")) {
-    MetaphAdd(ctx, "J", "");
+  if (StringAt(w, m_current, 5, "JEWSK", ""))
+  {
+    MetaphAddAlt(ctx, "J", "");
     return true;
   }
 

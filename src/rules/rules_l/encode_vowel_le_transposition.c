@@ -1,8 +1,10 @@
 #include "rules/rules_l/encode_vowel_le_transposition.h"
 #include "utils/char_utils.h"
 #include "utils/string_utils.h"
+#include "utils/metaph_add.h"
 
-bool Encode_Vowel_LE_Transposition(Metaphone3 *ctx, int save_current) {
+bool Encode_Vowel_LE_Transposition(Metaphone3 *ctx, int save_current)
+{
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
   int m_last = ctx->m_last;
@@ -41,12 +43,14 @@ bool Encode_Vowel_LE_Transposition(Metaphone3 *ctx, int save_current) {
       !StringAt(w, (save_current - 3), 6, "REPLEN", "") &&
       !StringAt(w, (save_current - 2), 4, "SPLE", "") &&
       (CharAt(w, (save_current - 1)) != 'H') &&
-      (CharAt(w, (save_current - 1)) != 'W')) {
-    MetaphAdd("AL");
+      (CharAt(w, (save_current - 1)) != 'W'))
+  {
+    MetaphAdd(ctx, "AL");
     ctx->flag_AL_inversion = true;
 
     // eat redundant 'L'
-    if (CharAt(w, (save_current + 2)) == 'L') {
+    if (CharAt(w, (save_current + 2)) == 'L')
+    {
       ctx->m_current = save_current + 3;
     }
     return true;

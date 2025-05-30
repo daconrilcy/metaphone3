@@ -3,11 +3,13 @@
 #include "utils/string_utils.h"
 #include <stdbool.h>
 
-bool Encode_DG(Metaphone3 *ctx) {
+bool Encode_DG(Metaphone3 *ctx)
+{
   int cur = ctx->m_current;
   const char *w = ctx->m_inWord;
 
-  if (StringAt(ctx, cur, 2, "DG", "")) {
+  if (StringAt(w, cur, 2, "DG", ""))
+  {
     // excludes exceptions e.g. 'edgar',
     // or cases where 'g' is first letter of combining form
     // e.g. 'handgun', 'waldglas'
@@ -20,9 +22,12 @@ bool Encode_DG(Metaphone3 *ctx) {
         // e.g. "mudgard"
         StringAt(w, (cur + 1), 5, "GUARD", "GUILT", "GRAVE", "GRASS", "") ||
         // e.g. "woodgrouse"
-        StringAt(w, (cur + 1), 6, "GROUSE", "")) {
+        StringAt(w, (cur + 1), 6, "GROUSE", ""))
+    {
       MetaphAddExactApproxSimple(ctx, "DG", "TK");
-    } else {
+    }
+    else
+    {
       // e.g. "edge", "abridgment"
       MetaphAdd(ctx, "J");
     }

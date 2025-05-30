@@ -1,8 +1,10 @@
 #include "rules/rules_r/encode_vowel_re_transposition.h"
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
+#include "utils/char_utils.h"
 
-bool Encode_Vowel_RE_Transposition(Metaphone3 *ctx) {
+bool Encode_Vowel_RE_Transposition(Metaphone3 *ctx)
+{
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
   int m_length = ctx->m_length;
@@ -19,7 +21,8 @@ bool Encode_Vowel_RE_Transposition(Metaphone3 *ctx) {
       !IsVowel(CharAt(w, (m_current - 1))) &&
       (((m_current + 1) == m_last) ||
        (((m_current + 2) == m_last) &&
-        StringAt(w, (m_current + 2), 1, "D", "S", "")))) {
+        StringAt(w, (m_current + 2), 1, "D", "S", ""))))
+  {
     MetaphAdd(ctx, "AR");
     return true;
   }

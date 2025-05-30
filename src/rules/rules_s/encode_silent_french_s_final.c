@@ -1,13 +1,16 @@
 #include "rules/rules_s/encode_silent_french_s_final.h"
 #include "utils/string_utils.h"
+#include "utils/metaph_add.h"
 
-bool Encode_Silent_French_S_Final(Metaphone3 *ctx) {
+bool Encode_Silent_French_S_Final(Metaphone3 *ctx)
+{
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
   int m_last = ctx->m_last;
 
   // "louis" is an exception because it gets two pronuncuations
-  if (StringAt(w, w, 0, 5, "LOUIS", "") && (m_current == m_last)) {
+  if (StringAt(w, 0, 5, "LOUIS", "") && (m_current == m_last))
+  {
     MetaphAddAlt(ctx, "S", "");
     ctx->m_current++;
     return true;
@@ -30,7 +33,8 @@ bool Encode_Silent_French_S_Final(Metaphone3 *ctx) {
            StringAt(w, 0, 11, "CONTRETEMPS", "DESLAURIERS", "")) ||
       ((m_current == m_last) &&
        StringAt(w, (m_current - 2), 2, "AI", "OI", "UI", "") &&
-       !StringAt(w, 0, 4, "LOIS", "LUIS", ""))) {
+       !StringAt(w, 0, 4, "LOIS", "LUIS", "")))
+  {
     ctx->m_current++;
     return true;
   }
