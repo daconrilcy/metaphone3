@@ -7,6 +7,8 @@
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
 
+#include <stdio.h>
+
 void Encode_Other_J(Metaphone3 *ctx)
 {
   const char *w = ctx->m_inWord;
@@ -24,7 +26,12 @@ void Encode_Other_J(Metaphone3 *ctx)
     {
       if (Encode_J_To_J(ctx))
       {
+        ctx->m_current++;
         return;
+      }
+      else
+      {
+        ctx->m_current++;
       }
     }
   }

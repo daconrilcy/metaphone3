@@ -46,7 +46,12 @@ void Encode_Vowels(Metaphone3 *ctx)
   if (!(!IsVowel(CharAt(w, (m_current - 2))) &&
         StringAt(w, (m_current - 1), 4, "LEWA", "LEWO", "LEWI", "")))
   {
-    ctx->m_current = SkipVowels(ctx, m_current);
+    int old = ctx->m_current;
+    ctx->m_current = SkipVowels(ctx, ctx->m_current);
+    if (ctx->m_current == old)
+    {
+      ctx->m_current++;
+    }
   }
   else
   {

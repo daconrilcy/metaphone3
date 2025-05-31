@@ -4,9 +4,9 @@
 #include <string.h>
 #include <stdio.h>
 
-EncodedWordList encode_multi(const char *input, char sep, bool encodeVowels, bool encodeExact, int metaphLength)
+EncodedWordList encode_multi(const char *input, char sep, int metaphLength, bool encodeVowels, bool encodeExact)
 {
-    // Compter le nombre de mots pour l’allocation
+    // Compte le nombre de mots pour l’allocation (nb de séparateurs + 1)
     int count = 1;
     for (const char *p = input; *p; ++p)
         if (*p == sep)
@@ -14,30 +14,40 @@ EncodedWordList encode_multi(const char *input, char sep, bool encodeVowels, boo
 
     EncodedWord *results = malloc(count * sizeof(EncodedWord));
     int idx = 0;
-
+    // On duplique la chaîne pour la manipuler (split manuel, no strtok)
     char *tofree = strdup(input);
-    char sep_str[2] = {sep, '\0'};
-    char *token = strtok(tofree, sep_str);
+    char *ptr = tofree;
 
-    while (token != NULL && idx < count)
+    bool encodeVowelsBool = encodeVowels ? true : false;
+    bool encodeExactBool = encodeExact ? true : false;
+
+    while (*ptr && idx < count)
     {
-        if (strlen(token) == 0)
-        {
-            token = strtok(NULL, sep_str);
-            continue;
+        // Début du token
+        char *start = ptr;
+        // Va jusqu'au prochain séparateur ou fin de chaîne
+        while (*ptr && *ptr != sep)
+            ptr++;
+        // Sauvegarde le séparateur trouvé
+        char old = *ptr;
+        *ptr = '\0'; // Coupe pour obtenir un vrai token
+
+        if (strlen(start) > 0)
+        { // Ignore les tokens vides
+            Metaphone3 *mp3 = Metaphone3_new(start, encodeVowelsBool, encodeExactBool, metaphLength);
+            Metaphone3_encode(mp3);
+
+            results[idx].mot = strdup(start);
+            results[idx].primary = strdup(Metaphone3_primary(mp3));
+            results[idx].secondary = strdup(Metaphone3_secondary(mp3));
+
+            Metaphone3_free(mp3);
+            idx++;
         }
-
-        Metaphone3 *mp3 = Metaphone3_new(token, encodeVowels, encodeExact, metaphLength);
-        Metaphone3_encode(mp3);
-
-        results[idx].mot = strdup(token);
-        results[idx].primary = strdup(Metaphone3_primary(mp3));
-        results[idx].secondary = strdup(Metaphone3_secondary(mp3));
-
-        Metaphone3_free(mp3);
-        idx++;
-        token = strtok(NULL, sep_str);
+        if (old)
+            ptr++; // Passe le séparateur pour continuer le split
     }
+
     free(tofree);
 
     EncodedWordList out = {.list = results, .count = idx};

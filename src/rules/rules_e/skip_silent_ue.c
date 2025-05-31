@@ -3,7 +3,8 @@
 #include "utils/skip_vowels.h"
 #include "utils/string_utils.h"
 
-bool Skip_Silent_UE(Metaphone3 *ctx) {
+bool Skip_Silent_UE(Metaphone3 *ctx)
+{
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
   int m_length = ctx->m_length;
@@ -17,8 +18,17 @@ bool Skip_Silent_UE(Metaphone3 *ctx) {
        !StringAt(w, 0, 7, "PIROGUE", "ENRIQUE", "") &&
        !StringAt(w, 0, 10, "COMMUNIQUE", "")) &&
       (m_current > 1) &&
-      (((m_current + 1) == m_last) || StringAt(w, 0, 7, "JACQUES", ""))) {
-    m_current = SkipVowels(ctx, m_current);
+      (((m_current + 1) == m_last) || StringAt(w, 0, 7, "JACQUES", "")))
+  {
+    int new_pos = SkipVowels(ctx, ctx->m_current);
+    if (new_pos == ctx->m_current)
+    {
+      ctx->m_current++;
+    }
+    else
+    {
+      ctx->m_current = new_pos;
+    }
     return true;
   }
 

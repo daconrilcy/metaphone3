@@ -33,6 +33,7 @@ static char *normalize_word(const char *word)
 
 Metaphone3 *Metaphone3_new(const char *word, bool encodeVowels, bool encodeExact, int metaphLength)
 {
+
   Metaphone3 *ctx = malloc(sizeof(Metaphone3));
   if (!ctx)
     exit(1);

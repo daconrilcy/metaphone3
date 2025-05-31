@@ -2,6 +2,8 @@
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
 
+#include <stdio.h>
+
 bool Encode_J_As_Vowel(Metaphone3 *ctx)
 {
   const char *w = ctx->m_inWord;

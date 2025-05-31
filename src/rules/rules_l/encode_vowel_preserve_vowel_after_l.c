@@ -21,7 +21,15 @@ bool Encode_Vowel_Preserve_Vowel_After_L(Metaphone3 *ctx, int save_current)
       !StringAt(w, (save_current - 1), 5, "RLEST", ""))
   {
     MetaphAdd(ctx, "LA");
-    ctx->m_current = SkipVowels(ctx, m_current);
+    int new_pos = SkipVowels(ctx, ctx->m_current);
+    if (new_pos == ctx->m_current)
+    {
+      ctx->m_current++;
+    }
+    else
+    {
+      ctx->m_current = new_pos;
+    }
     return true;
   }
 

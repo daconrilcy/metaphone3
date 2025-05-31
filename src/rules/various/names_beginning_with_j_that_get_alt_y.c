@@ -1,7 +1,10 @@
 #include "rules/various/names_beginning_with_j_that_get_alt_y.h"
 #include "utils/string_utils.h"
 
-bool Names_Beginning_With_J_That_Get_Alt_Y(Metaphone3 *ctx) {
+#include <stdio.h>
+
+bool Names_Beginning_With_J_That_Get_Alt_Y(Metaphone3 *ctx)
+{
   const char *w = ctx->m_inWord;
 
   if (StringAt(w, 0, 3, "JAN", "JON", "JAN", "JIN", "JEN", "") ||
@@ -55,9 +58,10 @@ bool Names_Beginning_With_J_That_Get_Alt_Y(Metaphone3 *ctx) {
                "JOSEPHINA", "JEANNETTE", "JOSEPHINE", "JEANNETTA", "JORGENSON",
                "JANKOWSKI", "JOHNSTONE", "JABLONSKI", "JOSEPHSON", "JOHANNSEN",
                "JURGENSEN", "JIMMERSON", "JOHANSSON", "") ||
-      StringAt(w, 0, 10, "JAKUBOWSKI", "")) {
+      StringAt(w, 0, 10, "JAKUBOWSKI", ""))
+  {
+
     return true;
   }
-
   return false;
 }

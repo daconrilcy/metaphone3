@@ -3,7 +3,11 @@
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
 
-bool Encode_German_J(Metaphone3 *ctx) {
+#include <stdio.h>
+
+bool Encode_German_J(Metaphone3 *ctx)
+{
+
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
   int m_last = ctx->m_last;
@@ -14,11 +18,11 @@ bool Encode_German_J(Metaphone3 *ctx) {
        ((m_current + 5) == m_last)) ||
       (StringAt(w, (m_current + 1), 3, "UNG", "") &&
        !StringAt(w, (m_current + 1), 4, "UNGL", "")) ||
-      StringAt(w, (m_current + 1), 3, "UGO", "")) {
+      StringAt(w, (m_current + 1), 3, "UGO", ""))
+  {
     MetaphAdd(ctx, "A");
     AdvanceCounter(ctx, 2, 1);
     return true;
   }
-
   return false;
 }

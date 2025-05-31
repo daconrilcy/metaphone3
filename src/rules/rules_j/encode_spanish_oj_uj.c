@@ -2,18 +2,25 @@
 #include "utils/advance_counter.h"
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
-bool Encode_Spanish_OJ_UJ(Metaphone3 *ctx) {
-  if (StringAt(ctx->m_inWord, (ctx->m_current + 1), 5, "OJOBA", "UJUY ", "")) {
-    if (ctx->m_encodeVowels) {
+bool Encode_Spanish_OJ_UJ(Metaphone3 *ctx)
+{
+  if (StringAt(ctx->m_inWord, (ctx->m_current + 1), 5, "OJOBA", "UJUY ", ""))
+  {
+    if (ctx->m_encodeVowels)
+    {
       MetaphAdd(ctx, "HAH");
-    } else {
+    }
+    else
+    {
       MetaphAdd(ctx, "HH");
     }
 
     AdvanceCounter(ctx, 4, 3);
     return true;
   }
-
   return false;
 }

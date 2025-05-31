@@ -18,7 +18,7 @@ typedef struct
     int count;
 } EncodedWordList;
 
-EncodedWordList encode_multi(const char *input, char sep, bool encodeVowels, bool encodeExact, int metaphLength);
+EncodedWordList encode_multi(const char *input, char sep, int metaphLength, bool encodeVowels, bool encodeExact);
 void free_encoded_word_list(EncodedWordList *result);
 
 #endif

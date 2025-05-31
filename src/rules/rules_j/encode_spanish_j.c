@@ -2,8 +2,12 @@
 #include "utils/advance_counter.h"
 #include "utils/metaph_add.h"
 #include "utils/string_utils.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
-bool Encode_Spanish_J(Metaphone3 *ctx) {
+bool Encode_Spanish_J(Metaphone3 *ctx)
+{
   const char *w = ctx->m_inWord;
   int m_current = ctx->m_current;
   int m_last = ctx->m_last;
@@ -38,16 +42,21 @@ bool Encode_Spanish_J(Metaphone3 *ctx) {
        (CharAt(w, (m_current + 1)) == 'O')
        // exceptions
        && !(StringAt(w, 0, 4, "TOJO", "") || StringAt(w, 0, 5, "BANJO", "") ||
-            StringAt(w, 0, 6, "MARYJO", "")))) {
+            StringAt(w, 0, 6, "MARYJO", ""))))
+  {
     // americans pronounce "juan" as 'wan'
     // and "marijuana" and "tijuana" also
     // do not get the 'H' as in spanish, so
     // just treat it like a vowel in these cases
     if (!(StringAt(w, m_current, 4, "JUAN", "") ||
-          StringAt(w, m_current, 4, "JOAQ", ""))) {
+          StringAt(w, m_current, 4, "JOAQ", "")))
+    {
       MetaphAdd(ctx, "H");
-    } else {
-      if (m_current == 0) {
+    }
+    else
+    {
+      if (m_current == 0)
+      {
         MetaphAdd(ctx, "A");
       }
     }
@@ -57,13 +66,18 @@ bool Encode_Spanish_J(Metaphone3 *ctx) {
 
   // Jorge gets 2nd HARHA. also JULIO, JESUS
   if (StringAt(w, (m_current + 1), 4, "ORGE", "ULIO", "ESUS", "") &&
-      !StringAt(w, 0, 6, "JORGEN", "")) {
+      !StringAt(w, 0, 6, "JORGEN", ""))
+  {
     // get both consonants for "jorge"
     if (((m_current + 4) == m_last) &&
-        StringAt(w, (m_current + 1), 4, "ORGE", "")) {
-      if (ctx->m_encodeVowels) {
+        StringAt(w, (m_current + 1), 4, "ORGE", ""))
+    {
+      if (ctx->m_encodeVowels)
+      {
         MetaphAddAlt(ctx, "JARJ", "HARHA");
-      } else {
+      }
+      else
+      {
         MetaphAddAlt(ctx, "JRJ", "HRH");
       }
       AdvanceCounter(ctx, 5, 5);
@@ -74,6 +88,5 @@ bool Encode_Spanish_J(Metaphone3 *ctx) {
     AdvanceCounter(ctx, 2, 1);
     return true;
   }
-
   return false;
 }
