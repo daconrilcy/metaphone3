@@ -64,7 +64,8 @@
     "encode_tch.h": "c",
     "encode_t_initial.h": "c",
     "encode_silent_french_t.h": "c",
-    "encode_t.h": "c"
+    "encode_t.h": "c",
+    "stddef.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

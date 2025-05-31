@@ -7,17 +7,20 @@
 
 // ---- Helpers ----
 // Nettoie et met en majuscule une copie d’un mot source
-static char *normalize_word(const char *word) {
+static char *normalize_word(const char *word)
+{
   int len = strlen(word);
   char *out = malloc(len + 1);
   if (!out)
     exit(1);
   int j = 0;
-  for (int i = 0; i < len; ++i) {
+  for (int i = 0; i < len; ++i)
+  {
     char c = word[i];
     if (c >= 'a' && c <= 'z')
       c -= 32; // toupper version simple
-    if ((c >= 'A' && c <= 'Z')) {
+    if ((c >= 'A' && c <= 'Z'))
+    {
       out[j++] = c;
     }
     // Si besoin : gérer accents ou autres caractères ici
@@ -28,8 +31,8 @@ static char *normalize_word(const char *word) {
 
 // ---- API ----
 
-Metaphone3 *Metaphone3_new(const char *word, bool encodeVowels,
-                           bool encodeExact, int metaphLength) {
+Metaphone3 *Metaphone3_new(const char *word, bool encodeVowels, bool encodeExact, int metaphLength)
+{
   Metaphone3 *ctx = malloc(sizeof(Metaphone3));
   if (!ctx)
     exit(1);
@@ -47,7 +50,8 @@ Metaphone3 *Metaphone3_new(const char *word, bool encodeVowels,
   return ctx;
 }
 
-void Metaphone3_free(Metaphone3 *ctx) {
+void Metaphone3_free(Metaphone3 *ctx)
+{
   if (!ctx)
     return;
   if (ctx->m_inWord)
@@ -58,9 +62,11 @@ void Metaphone3_free(Metaphone3 *ctx) {
 }
 
 // ---- Accès aux résultats ----
-const char *Metaphone3_primary(Metaphone3 *ctx) {
+const char *Metaphone3_primary(Metaphone3 *ctx)
+{
   return ctx && ctx->m_primary ? Buffer_data(ctx->m_primary) : "";
 }
-const char *Metaphone3_secondary(Metaphone3 *ctx) {
+const char *Metaphone3_secondary(Metaphone3 *ctx)
+{
   return ctx && ctx->m_secondary ? Buffer_data(ctx->m_secondary) : "";
 }

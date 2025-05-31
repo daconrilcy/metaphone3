@@ -1,4 +1,4 @@
-#include "metaphone3_encode.h"
+#include "metaphone3.h"
 
 #include "rules/rules_b.h"
 #include "rules/rules_c/encode_c.h"
